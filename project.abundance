@@ -1,13 +1,561 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-6085",
-    "name": "Test_lksjdfls",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "MM",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-6085",
+  "name": "Test_lksjdfls",
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Output",
+      "x": 1,
+      "y": 0.5,
+      "uniqueID": "id-6086",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Molecule",
+      "x": 0.4,
+      "y": 0.5,
+      "uniqueID": "id-6184",
+      "name": "Guitar Body",
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 1,
+          "y": 0.5,
+          "uniqueID": "id-6186",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Code",
+          "x": 0.2,
+          "y": 0.4,
+          "uniqueID": "id-6188",
+          "ioValues": [
+            {
+              "name": "bodyLength",
+              "ioValue": 400
+            },
+            {
+              "name": "bodyWidth",
+              "ioValue": 325
+            }
+          ],
+          "interpreterVersion": 1,
+          "code": "/**\n * Telecaster-style body outline (2D), front view, neck pointing +Y.\n * Butt end at y=0, neck end at y=bodyLength, centerline at x=0.\n * Bass side is -X, treble cutaway is +X (right-handed guitar).\n * bodyLength: mm, butt to neck end. bodyWidth: mm, across lower bout.\n * Curves meet with matching tangents so the edge flows without kinks.\n */\nfunction run(bodyLength: number = 400, bodyWidth: number = 325): Assembly {\n  const sx = bodyWidth / 325;\n  const sy = bodyLength / 400;\n  const p = (x: number, y: number): [number, number] => [x * sx, y * sy];\n\n  const outline = replicad\n    .draw(p(0, 0))\n    // broad, flat butt into the lower treble bout\n    .cubicBezierCurveTo(p(162.5, 125), p(128, 0), p(162.5, 45))\n    // gentle treble waist\n    .cubicBezierCurveTo(p(141, 245), p(162.5, 190), p(141, 210))\n    // upper treble bout rolling over into the cutaway\n    .cubicBezierCurveTo(p(88, 308), p(141, 285), p(122, 308))\n    // round cutaway scoop up to the horn tip\n    .cubicBezierCurveTo(p(42, 392), p(58, 308), p(42, 350))\n    // small round on the horn tip\n    .cubicBezierCurveTo(p(34, 400), p(42, 397), p(39, 400))\n    // flat neck end across the pocket to the bass shoulder\n    .lineTo(p(-85, 400))\n    // big rounded bass shoulder\n    .cubicBezierCurveTo(p(-146, 335), p(-125, 400), p(-146, 375))\n    // nearly straight upper bass side into a shallow waist\n    .cubicBezierCurveTo(p(-139, 245), p(-146, 300), p(-139, 275))\n    // lower bass bout\n    .cubicBezierCurveTo(p(-162.5, 125), p(-139, 210), p(-162.5, 190))\n    // back across the butt\n    .cubicBezierCurveTo(p(0, 0), p(-162.5, 45), p(-128, 0))\n    .close();\n\n  return new Assembly({ geometry: outline });\n}\n",
+          "compiledCode": "\"use strict\";\n/**\n * Telecaster-style body outline (2D), front view, neck pointing +Y.\n * Butt end at y=0, neck end at y=bodyLength, centerline at x=0.\n * Bass side is -X, treble cutaway is +X (right-handed guitar).\n * bodyLength: mm, butt to neck end. bodyWidth: mm, across lower bout.\n * Curves meet with matching tangents so the edge flows without kinks.\n */\nfunction run(bodyLength = 400, bodyWidth = 325) {\n    const sx = bodyWidth / 325;\n    const sy = bodyLength / 400;\n    const p = (x, y) => [x * sx, y * sy];\n    const outline = replicad\n        .draw(p(0, 0))\n        // broad, flat butt into the lower treble bout\n        .cubicBezierCurveTo(p(162.5, 125), p(128, 0), p(162.5, 45))\n        // gentle treble waist\n        .cubicBezierCurveTo(p(141, 245), p(162.5, 190), p(141, 210))\n        // upper treble bout rolling over into the cutaway\n        .cubicBezierCurveTo(p(88, 308), p(141, 285), p(122, 308))\n        // round cutaway scoop up to the horn tip\n        .cubicBezierCurveTo(p(42, 392), p(58, 308), p(42, 350))\n        // small round on the horn tip\n        .cubicBezierCurveTo(p(34, 400), p(42, 397), p(39, 400))\n        // flat neck end across the pocket to the bass shoulder\n        .lineTo(p(-85, 400))\n        // big rounded bass shoulder\n        .cubicBezierCurveTo(p(-146, 335), p(-125, 400), p(-146, 375))\n        // nearly straight upper bass side into a shallow waist\n        .cubicBezierCurveTo(p(-139, 245), p(-146, 300), p(-139, 275))\n        // lower bass bout\n        .cubicBezierCurveTo(p(-162.5, 125), p(-139, 210), p(-162.5, 190))\n        // back across the butt\n        .cubicBezierCurveTo(p(0, 0), p(-162.5, 45), p(-128, 0))\n        .close();\n    return new Assembly({ geometry: outline });\n}\n"
+        },
+        {
+          "atomType": "Extrude",
+          "x": 0.4,
+          "y": 0.4,
+          "uniqueID": "id-6197",
+          "ioValues": [
+            {
+              "name": "geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "height",
+              "ioValue": 45
+            }
+          ]
+        },
+        {
+          "atomType": "Molecule",
+          "x": 0.4,
+          "y": 0.7,
+          "uniqueID": "id-6203",
+          "name": "Neck Pocket",
+          "topLevel": false,
+          "allAtoms": [
+            {
+              "atomType": "Output",
+              "x": 1,
+              "y": 0.5,
+              "uniqueID": "id-6205",
+              "ioValues": [
+                {
+                  "name": "number or geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ]
+            },
+            {
+              "atomType": "Rectangle",
+              "x": 0.2,
+              "y": 0.5,
+              "uniqueID": "id-6207",
+              "ioValues": [
+                {
+                  "name": "x length",
+                  "ioValue": 56
+                },
+                {
+                  "name": "y length",
+                  "ioValue": 80
+                }
+              ]
+            },
+            {
+              "atomType": "Extrude",
+              "x": 0.4,
+              "y": 0.5,
+              "uniqueID": "id-6211",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": 17
+                }
+              ]
+            },
+            {
+              "atomType": "Move",
+              "x": 0.6,
+              "y": 0.5,
+              "uniqueID": "id-6215",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "xDist",
+                  "ioValue": 0
+                },
+                {
+                  "name": "yDist",
+                  "ioValue": 364
+                },
+                {
+                  "name": "zDist",
+                  "ioValue": 29
+                }
+              ]
+            }
+          ],
+          "allConnectors": [
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6207",
+              "ap2ID": "id-6211"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6211",
+              "ap2ID": "id-6215"
+            },
+            {
+              "ap2Name": "number or geometry",
+              "ap1ID": "id-6215",
+              "ap2ID": "id-6205"
+            }
+          ],
+          "fileTypeVersion": 1
+        },
+        {
+          "atomType": "Molecule",
+          "x": 0.4,
+          "y": 0.8,
+          "uniqueID": "id-6221",
+          "name": "Pickup Routes",
+          "topLevel": false,
+          "allAtoms": [
+            {
+              "atomType": "Output",
+              "x": 1,
+              "y": 0.5,
+              "uniqueID": "id-6223",
+              "ioValues": [
+                {
+                  "name": "number or geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ]
+            },
+            {
+              "atomType": "Rectangle",
+              "x": 0.2,
+              "y": 0.3,
+              "uniqueID": "id-6225",
+              "ioValues": [
+                {
+                  "name": "x length",
+                  "ioValue": 72
+                },
+                {
+                  "name": "y length",
+                  "ioValue": 21
+                }
+              ]
+            },
+            {
+              "atomType": "Extrude",
+              "x": 0.4,
+              "y": 0.3,
+              "uniqueID": "id-6229",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": 20
+                }
+              ]
+            },
+            {
+              "atomType": "Move",
+              "x": 0.6,
+              "y": 0.3,
+              "uniqueID": "id-6233",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "xDist",
+                  "ioValue": 0
+                },
+                {
+                  "name": "yDist",
+                  "ioValue": 295
+                },
+                {
+                  "name": "zDist",
+                  "ioValue": 26
+                }
+              ]
+            },
+            {
+              "atomType": "Rectangle",
+              "x": 0.2,
+              "y": 0.7,
+              "uniqueID": "id-6239",
+              "ioValues": [
+                {
+                  "name": "x length",
+                  "ioValue": 76
+                },
+                {
+                  "name": "y length",
+                  "ioValue": 38
+                }
+              ]
+            },
+            {
+              "atomType": "Extrude",
+              "x": 0.3,
+              "y": 0.7,
+              "uniqueID": "id-6243",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": 20
+                }
+              ]
+            },
+            {
+              "atomType": "Rotate",
+              "x": 0.5,
+              "y": 0.7,
+              "uniqueID": "id-6247",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "x-axis degrees",
+                  "ioValue": 0
+                },
+                {
+                  "name": "y-axis degrees",
+                  "ioValue": 0
+                },
+                {
+                  "name": "z-axis degrees",
+                  "ioValue": -8
+                }
+              ]
+            },
+            {
+              "atomType": "Move",
+              "x": 0.6,
+              "y": 0.7,
+              "uniqueID": "id-6253",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "xDist",
+                  "ioValue": 0
+                },
+                {
+                  "name": "yDist",
+                  "ioValue": 188
+                },
+                {
+                  "name": "zDist",
+                  "ioValue": 26
+                }
+              ]
+            },
+            {
+              "atomType": "Fusion",
+              "x": 0.8,
+              "y": 0.5,
+              "uniqueID": "id-6259",
+              "ioValues": [
+                {
+                  "name": "Shape 1",
+                  "ioValue": {
+                    "geometry": "move-extrude-rectangle-72-21-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}-20-0-295-26",
+                    "dimension": "3D",
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": []
+                  }
+                },
+                {
+                  "name": "Shape2",
+                  "ioValue": {
+                    "geometry": "move-rotate-extrude-rectangle-76-38-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}-20-0-0--8-0-188-26",
+                    "dimension": "3D",
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": []
+                  }
+                }
+              ],
+              "unionType": "Fusion"
+            }
+          ],
+          "allConnectors": [
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6225",
+              "ap2ID": "id-6229"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6229",
+              "ap2ID": "id-6233"
+            },
+            {
+              "ap2Name": "Shape 1",
+              "ap1ID": "id-6233",
+              "ap2ID": "id-6259"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6239",
+              "ap2ID": "id-6243"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6243",
+              "ap2ID": "id-6247"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-6247",
+              "ap2ID": "id-6253"
+            },
+            {
+              "ap2Name": "Shape2",
+              "ap1ID": "id-6253",
+              "ap2ID": "id-6259"
+            },
+            {
+              "ap2Name": "number or geometry",
+              "ap1ID": "id-6259",
+              "ap2ID": "id-6223"
+            }
+          ],
+          "fileTypeVersion": 1
+        },
+        {
+          "atomType": "Fusion",
+          "x": 0.6,
+          "y": 0.7,
+          "uniqueID": "id-6264",
+          "ioValues": [
+            {
+              "name": "Shape 1",
+              "ioValue": {
+                "geometry": "move-extrude-rectangle-56-80-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}-17-0-364-29",
+                "dimension": "3D",
+                "plane": {
+                  "origin": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "xDir": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "normal": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "color": "#aad7f2",
+                "tags": [],
+                "bom": []
+              }
+            },
+            {
+              "name": "Shape2",
+              "ioValue": {
+                "geometry": "fuse-move-extrude-rectangle-72-21-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}-20-0-295-26-move-rotate-extrude-rectangle-76-38-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}-20-0-0--8-0-188-26",
+                "tags": [],
+                "bom": [],
+                "plane": {
+                  "origin": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "xDir": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "normal": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "color": "#aad7f2",
+                "dimension": "3D"
+              }
+            }
+          ],
+          "unionType": "Fusion"
+        },
+        {
+          "atomType": "Difference",
+          "x": 0.7,
+          "y": 0.5,
+          "uniqueID": "id-6269",
+          "ioValues": [
+            {
+              "name": "retain",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "remove",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-6188",
+          "ap2ID": "id-6197"
+        },
+        {
+          "ap2Name": "retain",
+          "ap1ID": "id-6197",
+          "ap2ID": "id-6269"
+        },
+        {
+          "ap2Name": "Shape 1",
+          "ap1ID": "id-6203",
+          "ap2ID": "id-6264"
+        },
+        {
+          "ap2Name": "Shape2",
+          "ap1ID": "id-6221",
+          "ap2ID": "id-6264"
+        },
+        {
+          "ap2Name": "remove",
+          "ap1ID": "id-6264",
+          "ap2ID": "id-6269"
+        },
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-6269",
+          "ap2ID": "id-6186"
+        }
+      ],
+      "fileTypeVersion": 1
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-6184",
+      "ap2ID": "id-6086"
+    }
+  ],
+  "unitsKey": "MM",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
